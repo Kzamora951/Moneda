@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.min.js"></script>
+	<title>Moneda</title>
+	<style>
+		.dinero{
+			margin-top: 50px;
+			margin-bottom: 30px;
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<h1>Cara o Sello</h1>
+	</center>
+
+
+	<select name="estado" id="estado">
+		<option value="" disabled selected>Seleccione</option>
+		  <option value="Cara">Cara</option>
+		  <option value="Sello">Sello</option>
+	  </select>
+
+
+	<div class="dinero">
+		<label for=""> Ingrese el Dinero a Apostar <br>
+			<input type="number" name="" id="Dinero">
+			<input type="submit" onclick="guardar()" value="Guardar">
+		</label>
+	</div>
+
+  <input type="submit" value="Apostar" onclick="Apostar()">
+
+
+
+<p id="text"></p>
+<p id="text2"></p>
+<p id="text3"></p>
+
+
+
+<script>
+
+$("#estado").change(function(){
+      const estado = document.getElementById("estado").value;
+	  document.getElementById("text").innerHTML = estado ;
+    });
+
+	var Dinero = [];    
+    function guardar(){
+                    dineroapos = document.getElementById("Dinero").value;
+					Dinero = dineroapos;
+					alert(Dinero);
+                };
+
+			
+
+	function Apostar(){
+		let res = document.getElementById("text2").innerHTML = Math.floor(Math.random() * 2);
+		
+		if (estado.value == "Cara") {
+			estado = 1
+		}if (estado.value == "Sello") {
+			estado = 0
+		}
+
+
+
+
+		if (res == 1) {
+			restext = "Salio Cara";
+			document.getElementById("text3").innerHTML = restext;
+		}if (res == 0) {
+			restext2 = "Salio Sello";
+			document.getElementById("text3").innerHTML = restext2 + " as "+ estado;
+		}
+		dinero();
+
+	}
+	function dinero(){
+		
+	}
+
+
+</script>
+</body>
+</html>
