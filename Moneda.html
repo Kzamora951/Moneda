@@ -27,6 +27,14 @@
 			border: 3px #000 solid;
 			border-radius: 5px;
 			overflow: hidden;
+			margin-top: 7px;
+		}
+		dialog button:hover{
+			background-color: rgba(rgba(63, 63, 63, 0.7));
+			cursor: pointer;
+		}
+		center h1{
+			font-size: 240%;
 		}
 	</style>
 </head>
@@ -46,16 +54,17 @@
 
 	<div class="dinero">
 		<label for="" id="dinero2" style="display: none;"> Ingrese el Dinero a Apostar <br>
-			<input type="number" name="" id="Dinero">
+			<input type="number" name="" maxlength="7" id="Dinero">
 			<input type="submit" onclick="guardar()" value="Guardar">
 			<p id="text2" ></p>
 		</label>
 	</div>
 
-  <input style="display: none;" id="apostar" type="submit" value="Apostar" onclick="Apostar()">
+  <input style="display: none;" id="apostar" type="submit" value="Apostar" onclick="Apostar(),Sumar()">
 
 
-	<dialog id="id01" class="modal"><p>Te Quedaste sin Dinero</p><br>
+	<dialog id="id01" class="modal" ><p>Te Quedaste sin Dinero</p><br>
+		<p id="text7"></p>
 		<button onclick="location.reload()">Volver a Apostar</button>
 	</dialog>
 
@@ -86,6 +95,7 @@ $("#estado").change(function(){
 
 			
 				var Ganar;
+				var contador = 0;
 	function Apostar(){
 		let res = document.getElementById("text6").innerHTML = Math.floor(Math.random() * 2);
 
@@ -116,7 +126,7 @@ $("#estado").change(function(){
 			document.getElementById("id01").style.display='block';
 			perder();
 		}
-
+		
 
 	}
 	function ganar(){
@@ -128,6 +138,12 @@ $("#estado").change(function(){
 		Dinero = Dinero * 0;
 		document.getElementById("text5").innerHTML = Dinero;
 		document.getElementById("id01").showModal();
+	}
+	function Sumar(){
+		
+		contador = contador+1;
+  		
+		document.getElementById("text7").innerHTML = "Has apostado "+contador+" veces";
 	}
 
 
