@@ -18,14 +18,15 @@
 		dialog{
 			border-radius: 10px;
 			text-align: center;
-			background-color:#0d1117;
+			background-color:#2e343d;
+			
 		}
 		dialog p{
 			margin-bottom: 0px;
 			font-size: 120%;
 			margin: 1px 10px 0 10px;
 			color: #c9d1d9;
-			background-color: #0d1117;
+			background-color:#2e343d;
 		}
 		dialog button{
 			color: white;
@@ -65,7 +66,11 @@
 			background-color: #161a20
 		}
 		select option:hover{
-			background-color: #238636;
+			background-color: #989e9a;
+			cursor: pointer;
+		}
+		select option:focus{
+			background-color: #989e9a;
 			cursor: pointer;
 		}
 		label{
@@ -88,9 +93,10 @@
 			cursor: pointer;
 		}
 		input[type="number"]{
-			border: 1px rgba(240,246,252,0.1) solid;
+			margin-top: 10px;
+			border: 1.8px rgba(238, 241, 245, 0.6) solid;
 			color: #fff;
-			background-color: #0d1117;
+			background-color: #191f29;
 			width: 200px;
 			outline: none;
 			padding: 2px 1px;
@@ -103,14 +109,14 @@
 		}
 	</style>
 </head>
-<body>
+<body id="body">
 	<div class="todo">
 	<center>
 		<h1>Cara o Sello</h1>
 	</center>
 
 	<label for="">Cara o Sello: <br></label>
-	<select name="estado" id="estado">
+	<select name="estado" id="estado" onfocus='this.size=3;' onblur='this.size=0;' onchange='this.size=1; this.blur();'>
 		<option value="" disabled selected>Seleccione</option>
 		  <option value="Cara">Cara</option>
 		  <option value="Sello">Sello</option>
@@ -120,7 +126,7 @@
 
 	<div class="dinero">
 		<label for="" id="dinero2" style="display: none;"> Ingrese el Dinero a Apostar <br>
-			<input type="number" name="Dinero" max="10" id="Dinero">
+			<input type="number" name="Dinero" min="0" max="10" maxlength="10" id="Dinero">
 			<input type="submit" onclick="guardar()" value="Guardar">
 			<p id="text9"></p>
 			<p id="text2" ></p>
@@ -130,7 +136,7 @@
   <input style="display: none;" class="apostar" id="apostar" type="submit" value="Apostar" onclick="Apostar(),Sumar()">
 
 
-	<dialog id="id01" class="modal" ><p>Te Quedaste sin Dinero</p><br>
+	<dialog id="id01" class="modal" ><p id="text10"></p><p>!Perdiste¡<br> Te Quedaste sin Dinero</p><br>
 		<p id="text7"></p>
 		<p id="text8"></p>
 		<button onclick="location.reload()">Volver a Apostar</button>
@@ -147,12 +153,20 @@
 
 </div>
 <script>
+	
 
 $("#estado").change(function(){
       const estado = document.getElementById("estado").value;
 	  document.getElementById("text").innerHTML = "Has seleccionado: " + estado ;
 	  document.getElementById("dinero2").style.display='block';
     });
+	$(document).ready(function(){
+		$("#Dinero").keypress(function(){
+			if (this.value.length == 10) {
+				return false;
+			}
+		})
+	})
 
 	var Dinero = [];    
     function guardar(){
@@ -160,6 +174,8 @@ $("#estado").change(function(){
 					Dinero = dineroapos;
 					if (dineroapos <= 0) {
 						document.getElementById("text9").innerHTML = "Por favor introduzca un numero positivo";
+						document.getElementById("text2").innerHTML = "";
+						document.getElementById("apostar").style.display='none';
 					}else{
 						document.getElementById("text9").innerHTML = "";
 					document.getElementById("text2").innerHTML = "Tu dinero es: "+Dinero;
@@ -171,7 +187,7 @@ $("#estado").change(function(){
 				var Ganar;
 				var contador = 0;
 	function Apostar(){
-		let res = document.getElementById("text6").innerHTML = Math.floor(Math.random() * 2);
+		var res = document.getElementById("text6").innerHTML = Math.floor(Math.random() * 2);
 
 		if (res == 1) {
 			res = "Cara";
@@ -204,6 +220,7 @@ $("#estado").change(function(){
 	function perder(){
 		Dinero = Dinero * 0;
 		document.getElementById("id01").showModal();
+		document.getElementById("body").style.filter='blur(13px)';
 		document.getElementById("text8").innerHTML= "Tu Acumulado Fue "+Math.max(...DineroMax)
 		
 	}
